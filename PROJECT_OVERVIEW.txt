@@ -1,0 +1,120 @@
+ZAPTALK CHAT APPLICATION
+======================
+
+WHAT THIS PROJECT IS
+--------------------
+ZapTalk is a real-time one-to-one chat application built with the MERN stack:
+
+- MongoDB stores user accounts and chat messages.
+- Express and Node.js provide the backend API.
+- React provides the browser-based user interface.
+- Socket.IO supports real-time message delivery.
+
+PROJECT STRUCTURE
+-----------------
+frontend/
+  React frontend, pages, components, styles, and browser assets.
+  Login and registration pages are in src/pages/.
+  Chat UI components are in src/components/.
+  Backend API URLs are configured in src/utils/APIRoutes.js.
+
+backend/
+  Express and Socket.IO backend.
+  index.js starts the API server and connects to MongoDB.
+  routes/ contains authentication and message routes.
+  controllers/ contains request handling logic.
+  models/ contains MongoDB/Mongoose schemas.
+
+images/
+  Screenshots used in the project README.
+
+FEATURES
+--------
+- Create an account and log in.
+- Choose a profile avatar.
+- View other registered users as chat contacts.
+- Select a contact and exchange messages.
+- Deliver messages in real time when the recipient is online.
+- Log out using the power button in the chat sidebar.
+
+REQUIREMENTS
+------------
+- Node.js and npm.
+- MongoDB running locally or reachable through a MongoDB URI.
+- A MongoDB user with permission to read and write the application's database
+  if MongoDB authorization is enabled.
+
+CONFIGURATION
+-------------
+The backend reads its settings from backend/.env. Set:
+
+  PORT=5000
+  MONGO_URL="your MongoDB connection URI"
+
+The connection URI should point to a database named "chat", for example:
+
+  mongodb://USERNAME:PASSWORD@localhost:27017/chat?authSource=chat
+
+Replace the username and password with the MongoDB application's database
+user credentials. URL-encode special characters in the username or password.
+Keep backend/.env private; do not share or commit its credentials.
+
+The frontend reads frontend/.env. The example configuration defines:
+
+  REACT_APP_LOCALHOST_KEY="chat-app-current-user"
+
+The frontend API routes currently target the backend at http://localhost:5000.
+
+INSTALL AND RUN
+---------------
+Open two PowerShell terminals in the project folder.
+
+In the first terminal, install and start the backend:
+
+  cd .\backend
+  npm install
+  npm start
+
+In the second terminal, install and start the frontend:
+
+  cd .\frontend
+  npm install
+  $env:DISABLE_ESLINT_PLUGIN = "true"
+  npm start
+
+The DISABLE_ESLINT_PLUGIN setting is a development workaround for an existing
+ESLint dependency mismatch; it does not change application source code.
+
+Open the app at:
+
+  http://localhost:3000
+
+Keep both terminal processes running while using the app. To stop either
+server, focus its terminal and press Ctrl+C.
+
+FIRST USE
+---------
+1. Open the frontend and register a user.
+2. Choose an avatar when prompted.
+3. Register or log in as another user in a separate browser profile to have a
+   contact to chat with.
+4. Select a contact from the list to open the conversation.
+
+USEFUL BACKEND ENDPOINTS
+------------------------
+- GET  /ping                 Checks that the backend is responding.
+- POST /api/auth/register    Creates a user account.
+- POST /api/auth/login       Logs in a user.
+- GET  /api/auth/allusers/:id
+                             Lists chat contacts other than the given user.
+- POST /api/messages/addmsg  Saves a message.
+- POST /api/messages/getmsg  Loads messages between two users.
+
+DATA AND DEVELOPMENT NOTES
+--------------------------
+- MongoDB creates the "chat" database and its collections when the app first
+  writes data.
+- User passwords are hashed before they are stored.
+- The current chat UI lists all other registered users; there is no invitation
+  or friend-request workflow.
+- The frontend uses port 3000 and the backend uses port 5000 by default.
